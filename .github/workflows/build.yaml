@@ -1,0 +1,40 @@
+# The name of your workflow. This will appear on the GitHub Actions tab.
+name: Test Next.js Build
+
+# The 'on' keyword defines what events trigger this workflow.
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch. 
+  # (Change "main" to "master" if that is your default branch name).
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# A workflow run is made up of one or more jobs.
+jobs:
+  # This job is called "build".
+  build:
+    # Specifies the environment the job will run on. Let's use the latest Ubuntu linux environment.
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job.
+    steps:
+      # Step 1: Check out your repository under $GITHUB_WORKSPACE, so your workflow can access it.
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up the Node.js environment. Next.js requires Node.
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # You can specify your project's node version here (e.g., 18 or 20)
+          cache: 'npm'       # Caches dependencies to speed up subsequent workflow runs
+
+      # Step 3: Install your project dependencies (the ones from your package.json).
+      # 'npm ci' is generally preferred in CI environments over 'npm install' as it installs exactly what's in package-lock.json.
+      - name: Install Dependencies
+        run: npm ci
+
+      # Step 4: Run the build command to test if your Next.js application builds properly.
+      - name: Run Build
+        run: npm run build
