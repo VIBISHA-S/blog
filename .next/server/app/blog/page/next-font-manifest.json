@@ -1,0 +1,12 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/src/app/blog/page": [
+      "static/media/017d9bea37084d9b-s.p.a6d6de71.woff2",
+      "static/media/fba5a26ea33df6a3-s.p.1bbdebe6.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pagesUsingSizeAdjust": false
+}
