@@ -38,3 +38,18 @@ jobs:
       # Step 4: Run the build command to test if your Next.js application builds properly.
       - name: Run Build
         run: npm run build
+      
+      # Step 5: Test building the Docker image inside the Ubuntu VM
+      - name: Build Docker Image
+        run: docker build -t blog-app-image .
+
+      # Step 6: Test running the Docker container to ensure Next.js starts
+      - name: Test Docker Container
+        run: |
+          docker run -d -p 3000:3000 --name blog-container blog-app-image
+          
+          # Wait a few seconds for Next.js to start up inside the container
+          sleep 10
+          
+          # Ping the container to see if it responds with an HTTP status
+          curl -f http://localhost:3000 || exit 1
